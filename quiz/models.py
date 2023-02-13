@@ -40,7 +40,7 @@ class Question(BaseModel):
         return data
     
 class Answer(BaseModel):
-    question=models.ForeignKey(Question, on_delete=models.CASCADE , related_name='question')
+    question=models.ForeignKey(Question, on_delete=models.CASCADE , related_name='answers')
     answer=models.CharField(max_length=100)
     is_correct=models.BooleanField(default=False)
     

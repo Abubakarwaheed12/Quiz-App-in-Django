@@ -18,7 +18,13 @@ def home(request):
 
 # Quiz 
 def quiz(request):
-    return render(request, 'quiz.html')
+    category=request.GET.get('cat_name')
+    questions=Question.objects.filter(category__category_name__icontains=category)[:10]
+    print(questions)
+    context={
+        'questions':questions,
+    }
+    return render(request, 'quiz.html', context)
 
 # Make Api
 def get_quiz(request):
@@ -40,6 +46,7 @@ def get_quiz(request):
         payload={'status':True , 'data':data}
         
         return JsonResponse(payload)
+        
         
     except Exception as e :
         print(e)
