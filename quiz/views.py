@@ -21,6 +21,27 @@ def quiz(request):
     category=request.GET.get('cat_name')
     questions=Question.objects.filter(category__category_name__icontains=category)[:10]
     print(questions)
+    if request.method=='POST':
+        total_marks=10
+        
+        
+        obtained=0
+        for question in Question.objects.all():
+            ansId=request.POST.get(f'ansId-{question.uid}')
+            b=Answer.objects.filter(uid=ansId) 
+            print(ansId)
+            for a in b:
+                if a.is_correct==True:
+                    obtained+=1
+        print(obtained)
+        
+        context={
+            'total':total_marks,
+            'obtained':obtained,
+        }
+        
+        return render(request, 'result.html' , context)
+
     context={
         'questions':questions,
     }

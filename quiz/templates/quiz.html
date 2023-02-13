@@ -15,11 +15,12 @@
             <h2 class="text-center mb-3">Quiz App</h2>
                 <hr>
                 <form action="" method="POST">
+                  {% csrf_token %}
                 {% for question in questions %}
                 <h3><span> {{forloop.counter}} : </span> {{question}} ? </h3>
                 {% for qs in question.answers.all %}
                 <div class="form-check">
-                  <input class="form-check-input" type="radio" name="flexRadioDefault" id="{{qs.uid}}">
+                  <input class="form-check-input" type="radio" name="ansId-{{question.uid}}" value="{{qs.uid}}" >
                   <label class="form-check-label" for="flexRadioDefault1">
                     {{qs.answer}}
                   </label>
@@ -27,6 +28,7 @@
                 {% endfor%}
                 <hr>
                 {% endfor %}
+                <input type="submit" class="btn btn-success">
               </form>
               <!--  -->
         </div>
